@@ -942,7 +942,7 @@ void ThreadMapPort2(void* parg)
             }
         }
 
-        string strDesc = "Litecoin " + FormatFullVersion();
+        string strDesc = "Salt " + FormatFullVersion();
 #ifndef UPNPDISCOVER_SUCCESS
         /* miniupnpc 1.5 */
         r = UPNP_AddPortMapping(urls.controlURL, data.first.servicetype,
@@ -1034,8 +1034,8 @@ void MapPort(bool /* unused fMapPort */)
 // The first name is used as information source for addrman.
 // The second name should resolve to a list of seed addresses.
 static const char *strDNSSeed[][2] = {
-   /* {"litecoin.org", "litecoin.org"},
-    {"litecoin.andykellett.com", "litecoin.andykellett.com"}, */
+   /* {"itecoin.org", "itecoin.org"},
+    {"itecoin.andykellett.com", "itecoin.andykellett.com"}, */
 };
 
 void ThreadDNSAddressSeed(void* parg)
@@ -1513,7 +1513,7 @@ bool BindListenPort(string& strError)
     {
         int nErr = WSAGetLastError();
         if (nErr == WSAEADDRINUSE)
-            strError = strprintf(_("Unable to bind to port %d on this computer.  Litecoin is probably already running."), ntohs(sockaddr.sin_port));
+            strError = strprintf(_("Unable to bind to port %d on this computer.  Salt is probably already running."), ntohs(sockaddr.sin_port));
         else
             strError = strprintf("Error: Unable to bind to port %d on this computer (bind returned error %d)", ntohs(sockaddr.sin_port), nErr);
         printf("%s\n", strError.c_str());

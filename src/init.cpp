@@ -1,6 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2012 Litecoin Developers
+// Copyright (c) 2013-2014 Salt Developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file license.txt or http://www.opensource.org/licenses/mit-license.php.
 #include "headers.h"
@@ -66,7 +67,7 @@ void Shutdown(void* parg)
         delete pwalletMain;
         CreateThread(ExitTimeout, NULL);
         Sleep(50);
-        printf("Litecoin exiting\n\n");
+        printf("Salt exiting\n\n");
         fExit = true;
         exit(0);
     }
@@ -164,15 +165,15 @@ bool AppInit2(int argc, char* argv[])
     if (mapArgs.count("-?") || mapArgs.count("--help"))
     {
         string strUsage = string() +
-          _("Litecoin version") + " " + FormatFullVersion() + "\n\n" +
+          _("Salt version") + " " + FormatFullVersion() + "\n\n" +
           _("Usage:") + "\t\t\t\t\t\t\t\t\t\t\n" +
-            "  litecoind [options]                   \t  " + "\n" +
-            "  litecoind [options] <command> [params]\t  " + _("Send command to -server or litecoind") + "\n" +
-            "  litecoind [options] help              \t\t  " + _("List commands") + "\n" +
-            "  litecoind [options] help <command>    \t\t  " + _("Get help for a command") + "\n" +
+            "  saltd [options]                   \t  " + "\n" +
+            "  saltd [options] <command> [params]\t  " + _("Send command to -server or saltd") + "\n" +
+            "  saltd [options] help              \t\t  " + _("List commands") + "\n" +
+            "  saltd [options] help <command>    \t\t  " + _("Get help for a command") + "\n" +
           _("Options:") + "\n" +
-            "  -conf=<file>     \t\t  " + _("Specify configuration file (default: litecoin.conf)") + "\n" +
-            "  -pid=<file>      \t\t  " + _("Specify pid file (default: litecoin.pid)") + "\n" +
+            "  -conf=<file>     \t\t  " + _("Specify configuration file (default: salt.conf)") + "\n" +
+            "  -pid=<file>      \t\t  " + _("Specify pid file (default: salt.pid)") + "\n" +
             "  -gen             \t\t  " + _("Generate coins") + "\n" +
             "  -gen=0           \t\t  " + _("Don't generate coins") + "\n" +
             "  -min             \t\t  " + _("Start minimized") + "\n" +
@@ -183,7 +184,7 @@ bool AppInit2(int argc, char* argv[])
             "  -timeout=<n>     \t  "   + _("Specify connection timeout (in milliseconds)") + "\n" +
             "  -proxy=<ip:port> \t  "   + _("Connect through socks4 proxy") + "\n" +
             "  -dns             \t  "   + _("Allow DNS lookups for addnode and connect") + "\n" +
-            "  -port=<port>     \t\t  " + _("Listen for connections on <port> (default: 9333 or testnet: 19333)") + "\n" +
+            "  -port=<port>     \t\t  " + _("Listen for connections on <port> (default: 58441 or testnet: 59441)") + "\n" +
             "  -maxconnections=<n>\t  " + _("Maintain at most <n> connections to peers (default: 125)") + "\n" +
             "  -addnode=<ip>    \t  "   + _("Add a node to connect to and attempt to keep the connection open") + "\n" +
             "  -connect=<ip>    \t\t  " + _("Connect only to the specified node") + "\n" +
@@ -221,7 +222,7 @@ bool AppInit2(int argc, char* argv[])
 #endif
             "  -rpcuser=<user>  \t  "   + _("Username for JSON-RPC connections") + "\n" +
             "  -rpcpassword=<pw>\t  "   + _("Password for JSON-RPC connections") + "\n" +
-            "  -rpcport=<port>  \t\t  " + _("Listen for JSON-RPC connections on <port> (default: 9332)") + "\n" +
+            "  -rpcport=<port>  \t\t  " + _("Listen for JSON-RPC connections on <port> (default: 58440)") + "\n" +
             "  -rpcallowip=<ip> \t\t  " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
             "  -rpcconnect=<ip> \t  "   + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
             "  -blocknotify=<cmd> "     + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
@@ -252,7 +253,7 @@ bool AppInit2(int argc, char* argv[])
     }
 
     fTestNet = GetBoolArg("-testnet");
-    // Litecoin: Keep irc seeding on by default for now.
+    // Salt: Keep irc seeding on by default for now.
 //    if (fTestNet)
 //    {
         SoftSetBoolArg("-irc", true);
@@ -281,7 +282,7 @@ bool AppInit2(int argc, char* argv[])
 
 #ifndef QT_GUI
     for (int i = 1; i < argc; i++)
-        if (!IsSwitchChar(argv[i][0]) && !(strlen(argv[i]) > 8 && strncasecmp(argv[i], "litecoin:", 9) == 0))
+        if (!IsSwitchChar(argv[i][0]) && !(strlen(argv[i]) > 8 && strncasecmp(argv[i], "salt:", 9) == 0))
             fCommandLine = true;
 
     if (fCommandLine)
@@ -316,7 +317,7 @@ bool AppInit2(int argc, char* argv[])
     if (!fDebug && !pszSetDataDir[0])
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    printf("Litecoin version %s\n", FormatFullVersion().c_str());
+    printf("Salt version %s\n", FormatFullVersion().c_str());
     printf("Default data directory %s\n", GetDefaultDataDir().c_str());
 
     if (GetBoolArg("-loadblockindextest"))
@@ -327,14 +328,14 @@ bool AppInit2(int argc, char* argv[])
         return false;
     }
 
-    // Make sure only a single litecoin process is using the data directory.
+    // Make sure only a single salt process is using the data directory.
     string strLockFile = GetDataDir() + "/.lock";
     FILE* file = fopen(strLockFile.c_str(), "a"); // empty lock file; created if it doesn't exist.
     if (file) fclose(file);
     static boost::interprocess::file_lock lock(strLockFile.c_str());
     if (!lock.try_lock())
     {
-        wxMessageBox(strprintf(_("Cannot obtain a lock on data directory %s.  Litecoin is probably already running."), GetDataDir().c_str()), "Litecoin");
+        wxMessageBox(strprintf(_("Cannot obtain a lock on data directory %s.  Salt is probably already running."), GetDataDir().c_str()), "Salt");
         return false;
     }
 
@@ -343,7 +344,7 @@ bool AppInit2(int argc, char* argv[])
     // Load data files
     //
     if (fDaemon)
-        fprintf(stdout, "litecoin server starting\n");
+        fprintf(stdout, "salt server starting\n");
     int64 nStart;
 
     InitMessage(_("Loading addresses..."));
@@ -371,12 +372,12 @@ bool AppInit2(int argc, char* argv[])
         if (nLoadWalletRet == DB_CORRUPT)
             strErrors << _("Error loading wallet.dat: Wallet corrupted") << "\n";
         else if (nLoadWalletRet == DB_TOO_NEW)
-            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Litecoin") << "\n";
+            strErrors << _("Error loading wallet.dat: Wallet requires newer version of Salt") << "\n";
         else if (nLoadWalletRet == DB_NEED_REWRITE)
         {
-            strErrors << _("Wallet needed to be rewritten: restart Litecoin to complete") << "\n";
+            strErrors << _("Wallet needed to be rewritten: restart Salt to complete") << "\n";
             printf("%s", strErrors.str().c_str());
-            wxMessageBox(strErrors.str(), "Litecoin", wxOK | wxICON_ERROR);
+            wxMessageBox(strErrors.str(), "Salt", wxOK | wxICON_ERROR);
             return false;
         }
         else
@@ -418,7 +419,7 @@ bool AppInit2(int argc, char* argv[])
 
     if (!strErrors.str().empty())
     {
-        wxMessageBox(strErrors.str(), "Litecoin", wxOK | wxICON_ERROR);
+        wxMessageBox(strErrors.str(), "Salt", wxOK | wxICON_ERROR);
         return false;
     }
 
@@ -474,7 +475,7 @@ bool AppInit2(int argc, char* argv[])
         addrProxy = CService(mapArgs["-proxy"], 9050);
         if (!addrProxy.IsValid())
         {
-            wxMessageBox(_("Invalid -proxy address"), "Litecoin");
+            wxMessageBox(_("Invalid -proxy address"), "Salt");
             return false;
         }
     }
@@ -538,18 +539,18 @@ bool AppInit2(int argc, char* argv[])
     {
         if (!ParseMoney(mapArgs["-paytxfee"], nTransactionFee))
         {
-            wxMessageBox(_("Invalid amount for -paytxfee=<amount>"), "Litecoin");
+            wxMessageBox(_("Invalid amount for -paytxfee=<amount>"), "Salt");
             return false;
         }
         if (nTransactionFee > 0.25 * COIN)
-            wxMessageBox(_("Warning: -paytxfee is set very high.  This is the transaction fee you will pay if you send a transaction."), "Litecoin", wxOK | wxICON_EXCLAMATION);
+            wxMessageBox(_("Warning: -paytxfee is set very high.  This is the transaction fee you will pay if you send a transaction."), "Salt", wxOK | wxICON_EXCLAMATION);
     }
 
     if (mapArgs.count("-mininput"))
     {
         if (!ParseMoney(mapArgs["-mininput"], nMinimumInputValue))
         {
-            wxMessageBox(_("Invalid amount for -mininput=<amount>"), "Litecoin");
+            wxMessageBox(_("Invalid amount for -mininput=<amount>"), "Salt");
             return false;
         }
     }
@@ -563,7 +564,7 @@ bool AppInit2(int argc, char* argv[])
     RandAddSeedPerfmon();
 
     if (!CreateThread(StartNode, NULL))
-        wxMessageBox(_("Error: CreateThread(StartNode) failed"), "Litecoin");
+        wxMessageBox(_("Error: CreateThread(StartNode) failed"), "Salt");
 
     if (fServer)
         CreateThread(ThreadRPCServer, NULL);
