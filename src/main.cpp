@@ -1876,7 +1876,7 @@ bool LoadBlockIndex(bool fAllowNew)
 {
     if (fTestNet)
     {
-        hashGenesisBlock = uint256("0xf5ae71e26c74beacc88382716aced69cddf3dffff24f384e1808905e0188f68f");
+        hashGenesisBlock = uint256("0x4121ea2367a4a6d1a27e9d68628d576f841cd8a48967390472d8bbd503205692");
         // bnProofOfWorkLimit = CBigNum(~uint256(0) >> 28); // Salt: starting difficulty is the same for testnet
         // Salt: increase each by adding 2 to bitcoin's value.
         pchMessageStart[0] = 0xfc;
@@ -1929,17 +1929,17 @@ bool LoadBlockIndex(bool fAllowNew)
         {
             block.nTime    = 1388479821; // nTime
             block.nBits    = 0x1e0ffff0;
-            block.nNonce   = 385270584;
+            block.nNonce   = 385633262;
         }
 
         //// debug print
         printf("%s\n", block.GetHash().ToString().c_str());
         printf("%s\n", hashGenesisBlock.ToString().c_str());
         printf("%s\n", block.hashMerkleRoot.ToString().c_str());
-        assert(block.hashMerkleRoot == uint256("0x97ddfbbae6be97fd6cdf3e7ca13232a3afff2353e29badfab7f73011edd4ced9"));
+        assert(block.hashMerkleRoot == uint256("0x0392726dda89eb5447a91dd7662c43beee086b1044c3aa2538eb1995e6e7df25"));
 
         // If genesis block hash does not match, then generate new genesis hash.
-        if (false && block.GetHash() != hashGenesisBlock)
+        if (true && block.GetHash() != hashGenesisBlock)
         {
             printf("Searching for genesis block...\n");
             // This will figure out a valid hash and Nonce if you're
