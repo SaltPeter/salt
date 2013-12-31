@@ -60,7 +60,7 @@ OBJS= \
     obj/wallet.o
 
 
-all: litecoind.exe
+all: saltd.exe
 
 obj/nogui/scrypt.o: scrypt.c
 	gcc -c -o $@ $^
@@ -68,7 +68,7 @@ obj/nogui/scrypt.o: scrypt.c
 obj/%.o: %.cpp $(HEADERS)
 	g++ -c $(CFLAGS) -o $@ $<
 
-litecoind.exe: $(OBJS:obj/%=obj/%)
+saltd.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 obj/test/test_bitcoin.o: $(wildcard test/*.cpp) $(HEADERS)
@@ -78,7 +78,7 @@ test_bitcoin.exe: obj/test/test_bitcoin.o $(filter-out obj/init.o,$(OBJS:obj/%=o
 	g++ $(CFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 clean:
-	-del /Q litecoind test_bitcoin
+	-del /Q saltd test_bitcoin
 	-del /Q obj\*
 	-del /Q obj\nogui\*
 	-del /Q obj\test\*
