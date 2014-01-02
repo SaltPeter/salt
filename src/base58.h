@@ -264,7 +264,7 @@ class CBitcoinAddress : public CBase58Data
 public:
     enum
     {
-        PUBKEY_ADDRESS = 25, // Salt addresses start with S
+        PUBKEY_ADDRESS = 63, // Salt addresses start with S
         SCRIPT_ADDRESS = 5,  // https://en.bitcoin.it/wiki/Base58Check_encoding
         PUBKEY_ADDRESS_TEST = 111,
         SCRIPT_ADDRESS_TEST = 196,
