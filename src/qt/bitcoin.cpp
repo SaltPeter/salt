@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
     // Do this early as we don't want to bother initializing if we are just calling IPC
     for (int i = 1; i < argc; i++)
     {
-        if (strlen(argv[i]) > 8 && strncasecmp(argv[i], "litecoin:", 9) == 0)
+        if (strlen(argv[i]) > 8 && strncasecmp(argv[i], "salt:", 9) == 0)
         {
             const char *strURL = argv[i];
             try {
@@ -164,7 +164,7 @@ int main(int argc, char *argv[])
     // Command-line options take precedence:
     ParseParameters(argc, argv);
 
-    // ... then bitcoin.conf:
+    // ... then salt.conf:
     if (!ReadConfigFile(mapArgs, mapMultiArgs))
     {
         fprintf(stderr, "Error: Specified directory does not exist\n");
@@ -176,9 +176,9 @@ int main(int argc, char *argv[])
     app.setOrganizationName("Bitcoin");
     app.setOrganizationDomain("bitcoin.org");
     if(GetBoolArg("-testnet")) // Separate UI settings for testnet
-        app.setApplicationName("Litecoin-Qt-testnet");
+        app.setApplicationName("Salt-Qt-testnet");
     else
-        app.setApplicationName("Litecoin-Qt");
+        app.setApplicationName("Salt-Qt");
 
     // ... then GUI settings:
     OptionsModel optionsModel;
@@ -257,7 +257,7 @@ int main(int argc, char *argv[])
                 // Check for URL in argv
                 for (int i = 1; i < argc; i++)
                 {
-                    if (strlen(argv[i]) > 8 && strncasecmp(argv[i], "litecoin:", 9) == 0)
+                    if (strlen(argv[i]) > 8 && strncasecmp(argv[i], "salt:", 9) == 0)
                     {
                         const char *strURL = argv[i];
                         try {

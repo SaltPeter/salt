@@ -66,7 +66,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0)
 {
     resize(850, 550);
-    setWindowTitle(tr("Litecoin Wallet"));
+    setWindowTitle(tr("Salt Wallet"));
 #ifndef Q_WS_MAC
     setWindowIcon(QIcon(":icons/bitcoin"));
 #else
@@ -209,7 +209,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(receiveCoinsAction);
 
     sendCoinsAction = new QAction(QIcon(":/icons/send"), tr("&Send coins"), this);
-    sendCoinsAction->setToolTip(tr("Send coins to a litecoin address"));
+    sendCoinsAction->setToolTip(tr("Send coins to a salt address"));
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_2));
     tabGroup->addAction(sendCoinsAction);
@@ -240,16 +240,16 @@ void BitcoinGUI::createActions()
     quitAction->setShortcut(QKeySequence(Qt::CTRL + Qt::Key_Q));
     quitAction->setMenuRole(QAction::QuitRole);
     aboutAction = new QAction(QIcon(":/icons/bitcoin"), tr("&About %1").arg(qApp->applicationName()), this);
-    aboutAction->setToolTip(tr("Show information about Litecoin"));
+    aboutAction->setToolTip(tr("Show information about Salt"));
     aboutAction->setMenuRole(QAction::AboutRole);
     aboutQtAction = new QAction(tr("About &Qt"), this);
     aboutQtAction->setToolTip(tr("Show information about Qt"));
     aboutQtAction->setMenuRole(QAction::AboutQtRole);
     optionsAction = new QAction(QIcon(":/icons/options"), tr("&Options..."), this);
-    optionsAction->setToolTip(tr("Modify configuration options for Litecoin"));
+    optionsAction->setToolTip(tr("Modify configuration options for Salt"));
     optionsAction->setMenuRole(QAction::PreferencesRole);
-    openBitcoinAction = new QAction(QIcon(":/icons/bitcoin"), tr("Open &Litecoin"), this);
-    openBitcoinAction->setToolTip(tr("Show the Litecoin window"));
+    openBitcoinAction = new QAction(QIcon(":/icons/bitcoin"), tr("Open &Salt"), this);
+    openBitcoinAction->setToolTip(tr("Show the Salt window"));
     exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     encryptWalletAction = new QAction(QIcon(":/icons/lock_closed"), tr("&Encrypt Wallet"), this);
@@ -393,7 +393,7 @@ void BitcoinGUI::createTrayIcon()
     trayIcon = new QSystemTrayIcon(this);
     trayIconMenu = new QMenu(this);
     trayIcon->setContextMenu(trayIconMenu);
-    trayIcon->setToolTip(tr("Litecoin client"));
+    trayIcon->setToolTip(tr("Salt client"));
     trayIcon->setIcon(QIcon(":/icons/toolbar"));
     connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this, SLOT(trayIconActivated(QSystemTrayIcon::ActivationReason)));
@@ -421,7 +421,7 @@ void BitcoinGUI::createTrayIcon()
     trayIconMenu->addAction(quitAction);
 #endif
 
-    notificator = new Notificator(tr("litecoin-qt"), trayIcon);
+    notificator = new Notificator(tr("Salt-qt"), trayIcon);
 }
 
 #ifndef Q_WS_MAC
@@ -429,7 +429,7 @@ void BitcoinGUI::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 {
     if(reason == QSystemTrayIcon::Trigger)
     {
-        // Click on system tray icon triggers "open litecoin"
+        // Click on system tray icon triggers "open salt"
         openBitcoinAction->trigger();
     }
 }
@@ -463,7 +463,7 @@ void BitcoinGUI::setNumConnections(int count)
     default: icon = ":/icons/connect_4"; break;
     }
     labelConnectionsIcon->setPixmap(QIcon(icon).pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Litecoin network", "", count));
+    labelConnectionsIcon->setToolTip(tr("%n active connection(s) to Salt network", "", count));
 }
 
 void BitcoinGUI::setNumBlocks(int count)
@@ -562,12 +562,12 @@ void BitcoinGUI::setMining(bool mining, int hashrate)
     if (mining)
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/mining_active").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Mining litecoins at %1 hashes per second").arg(hashrate));
+        labelMiningIcon->setToolTip(tr("Mining salt at %1 hashes per second").arg(hashrate));
     }
     else
     {
         labelMiningIcon->setPixmap(QIcon(":/icons/mining_inactive").pixmap(STATUSBAR_ICONSIZE,STATUSBAR_ICONSIZE));
-        labelMiningIcon->setToolTip(tr("Not mining litecoins"));
+        labelMiningIcon->setToolTip(tr("Not mining salt"));
     }
 }
 

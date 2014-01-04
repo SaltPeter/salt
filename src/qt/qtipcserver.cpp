@@ -45,7 +45,7 @@ void ipcThread(void* parg)
 void ipcInit()
 {
 #ifdef MAC_OSX
-    // TODO: implement litecoin: URI handling the Mac Way
+    // TODO: implement salt: URI handling the Mac Way
     return;
 #endif
 
@@ -56,7 +56,7 @@ void ipcInit()
     try {
         mq = new message_queue(open_or_create, "BitcoinURL", 2, 256);
 
-        // Make sure we don't lose any litecoin: URIs
+        // Make sure we don't lose any salt: URIs
         for (int i = 0; i < 2; i++)
         {
             ptime d = boost::posix_time::microsec_clock::universal_time() + millisec(1);
